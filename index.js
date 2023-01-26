@@ -5,10 +5,14 @@ import cookieParser from "cookie-parser";
 import userRoutes from './routes/users.js';
 import authRoutes from './routes/auths.js';
 import tweetRoutes from './routes/tweets.js';
+import cors from 'cors';
 
 const app = express();
 dotenv.config();
 
+app.use(cors({origin : "*"}));
+
+const port = process.env.PORT || 8000;
 
 const connect = () => {
     mongoose.set("strictQuery",false);
@@ -26,8 +30,7 @@ app.use('/api/auth' ,authRoutes);
 app.use('/api/tweets',tweetRoutes);
 
 
-app.listen(4000, () => {
+app.listen(port, () => {
     connect();
-    console.log('listen to port 4000');
-
+    console.log(`listen to port ${port}`)
 });
